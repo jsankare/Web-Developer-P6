@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config();
 
+const userRoutes = require('./routes/user');
+
 // remplacer les valeurs en dur avec les valeurs dans le .env
 mongoose.connect(`mongodb+srv://jsankare:vj8IDShvs2Rvo5TV@cluster0.vckfmxe.mongodb.net/?retryWrites=true&w=majority`,
   { useNewUrlParser: true,
@@ -17,5 +19,7 @@ const app = express();
 //     console.log('Requête reçue');
 //     next();
 // });
+
+app.use('api/auth', userRoutes);
 
 module.exports = app;
