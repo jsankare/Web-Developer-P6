@@ -15,26 +15,26 @@ exports.signup = async (request, response, next) => {
 
         try {
             await user.save();
-            response.status(201).json({ message : 'utilisateur crée !'});
+            response.status(201).json({ message: 'utilisateur crée !' });
         } catch (error) {
-            response.status(400).json({error});
+            response.status(400).json({ error });
         }
     } catch (error) {
-        response.status(500).json({error});
+        response.status(500).json({ error });
     }
 };
 
-exports.login = (request, response, next) => {
-    User.findOne({email: request.body.email})
-    .then(user => {
+exports.login = async (request, response, next) => {
+    try {
+        const user = await User.findOne({ email: request.body.email });
         if (user === null) {
-            response.status(401).json({message : 'Paire login/password incorrecte'})
+            response.status(401).json({ message: 'Paire login/password incorrecte' });
         }
         else {
-            bcrypt.compare(request.body.password, user.password)
-            .then(valid => {
+            try {
+                const valid = await bcrypt.compare(request.body.password, user.password);
                 if (!valid) {
-                    response.status(401).json({message : 'Paire login/password incorrecte'})
+                    response.status(401).json({ message: 'Paire login/password incorrecte' });
                 }
                 else {
                     response.status(200).json({
@@ -46,13 +46,15 @@ exports.login = (request, response, next) => {
                         )
                     });
                 }
-            })
-            .catch(error => {
-                response.status(500).json({error});
-            })
+            }
+            catch (error) {
+                console.error('Issue with brcypt', error);
+                response.status(500).json({ error });
+            }
         }
-    })
-    .catch(error => {
-        response.status(500).json( {error} );
-    })
+    }
+    catch (error) {
+        console.error('Fail with DB', error);
+        response.status(500).json({ error });
+    }
 };
