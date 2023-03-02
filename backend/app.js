@@ -1,25 +1,28 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-dotenv.config();
+require('dotenv').config();
+const cors = require('cors');
 
 const userRoutes = require('./routes/user');
 
-// remplacer les valeurs en dur avec les valeurs dans le .env
-mongoose.connect(`mongodb+srv://jsankare:vj8IDShvs2Rvo5TV@cluster0.vckfmxe.mongodb.net/?retryWrites=true&w=majority`,
+mongoose.set('strictQuery', false);
+
+mongoose.connect(`mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@cluster0.vckfmxe.mongodb.net/?retryWrites=true&w=majority`,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 const app = express();
+app.use(cors());
 
-// Middleware exemple
-// app.use((req, res, next) => {
-//     console.log('Requête reçue');
-//     next();
-// });
+app.use(express.json());
 
-app.use('api/auth', userRoutes);
+app.use((req, res, next) => {
+    console.log('Requête reçue');
+    next();
+});
+
+app.use('/api/auth', userRoutes);
 
 module.exports = app;
