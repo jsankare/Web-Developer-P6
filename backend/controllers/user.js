@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 
 const User = require('../models/user');
 
@@ -24,5 +24,30 @@ exports.signup = async (request, response, next) => {
 };
 
 exports.login = (request, response, next) => {
-
+    User.findOne({email: request.body.email})
+    .then(user => {
+        if (user === null) {
+            response.status(401).json({message : 'Paire login/password incorrecte'})
+        }
+        else {
+            bcrypt.compare(request.body.password, user.password)
+            .then(valid => {
+                if (!valid) {
+                    response.status(401).json({message : 'Paire login/password incorrecte'})
+                }
+                else {
+                    response.status(200).json({
+                        userId: user._id,
+                        token: 'TOKEN'
+                    });
+                }
+            })
+            .catch(error => {
+                response.status(500).json({error});
+            })
+        }
+    })
+    .catch(error => {
+        response.status(500).json( {error} );
+    })
 };

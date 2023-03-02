@@ -14,14 +14,14 @@ mongoose.connect(`mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONG
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 const app = express();
-app.use(cors());
 
+app.use(cors());
 app.use(express.json());
 
-app.use((req, res, next) => {
-    console.log('Requête reçue');
-    next();
-});
+// app.use((request, response, next) => {
+//     console.log('Requête reçue');
+//     next();
+// });
 
 app.use('/api/auth', userRoutes);
 
