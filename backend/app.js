@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const cors = require('cors');
 
+const Sauce = require('./models/sauce')
 const userRoutes = require('./routes/user');
 
 mongoose.set('strictQuery', false);
