@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const cors = require('cors');
 
-const Sauce = require('./models/sauce')
+const Sauce = require('./routes/sauce')
 const userRoutes = require('./routes/user');
 
 mongoose.set('strictQuery', false);
@@ -20,5 +20,6 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', userRoutes);
+app.use('/api/sauces', Sauce);
 
 module.exports = app;
