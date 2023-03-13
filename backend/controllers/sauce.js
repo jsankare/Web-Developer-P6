@@ -18,15 +18,14 @@ exports.readAllSauces = (request, response, next) => {
 // Create a sauce
 exports.createSauce = (request, response, next) => {
     const sauceObject = JSON.parse(request.body.sauce);
-    console.log(request.auth)
     const sauce = new Sauce({
         ...sauceObject,
         userId: request.auth.userId,
-        imageUrl: `public/images/${request.file.filename}`
+        imageUrl: `/public/images/${request.file.filename}`
     });
     sauce.save()
-    .then((sauce) => response.status(201).json(sauce, sauceLinks(sauce._id)))
-    .catch(error => response.status(401).json({error}));
+    .then((sauce) => response.status(201).json(sauce))
+    .catch(error => response.status(500).json({error}));
 };
 
 // model links
