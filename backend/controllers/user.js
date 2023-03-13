@@ -55,7 +55,7 @@ exports.login = async (request, response, next) => {
         }
     }
     catch (error) {
-        console.error('Issue with MangoDB', error);
+        console.error('Issue with MongoDB', error);
         response.status(500).json({ error });
     }
 };

@@ -19,7 +19,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static(__dirname + '/public/images')); // ?
+
+app.use('/public', express.static('public'));
 
 app.use('/api/auth', userRoutes);
 app.use('/api/sauces', Sauce);

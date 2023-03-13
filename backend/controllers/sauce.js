@@ -1,5 +1,4 @@
 const Sauce = require('../models/sauce'); 
-const fs = require('fs');
 
 // Get all sauces
 exports.readAllSauces = (request, response, next) => {
