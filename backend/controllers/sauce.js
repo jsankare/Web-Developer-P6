@@ -1,4 +1,6 @@
 const Sauce = require('../models/sauce');
+const fs = require('fs');
+const { error } = require('console');
 
 // Create a sauce
 exports.createSauce = (request, response) => {
@@ -37,7 +39,29 @@ exports.readOneSauce = (request, response) => {
 };
 
 // Update a sauce
-
-// Delete a sauce
+// exports.updateSauce = (request, response) => {
+//   Sauce.updateOne({ _id: request.params.id}, {...request.body, _id: request.params.id})
+//   .then(() => response.status(200).json(sauce))
+//   .catch(error => response.status(500).json({error}));
+// }
 
 // Like or dislike a sauce
+
+// Delete a sauce
+exports.deleteSauce = (request, response) => {
+  Sauce.findOne({_id: request.params.id})
+  .then(sauce => {
+    if (sauce.userId != request.auth.userId) {
+      response.status(401).json({message : 'Utilisateur non autorisé'});
+    }
+    else {
+      const filename = sauce.imageUrl.split('/images/')[1];
+      fs.unlink(`images/${filename}`, () => {
+        Sauce.deleteOne({_id: request.params.id})
+        .then((sauce) => response.status(200).json(sauce))
+        .catch(error => response.status(501).json({error}));
+      });
+    }
+  })
+  .catch(error => response.status(500).json({error}))
+}
