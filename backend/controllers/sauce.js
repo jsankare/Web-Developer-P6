@@ -63,5 +63,8 @@ exports.deleteSauce = (request, response) => {
       });
     }
   })
-  .catch(error => response.status(500).json({error}))
+  .catch(error => {
+    console.log(error)
+    response.status(500).json({error})
+  })
 }
