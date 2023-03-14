@@ -40,9 +40,14 @@ exports.readOneSauce = (request, response) => {
 
 // Update a sauce
 // exports.updateSauce = (request, response) => {
-//   Sauce.updateOne({ _id: request.params.id}, {...request.body, _id: request.params.id})
-//   .then(() => response.status(200).json(sauce))
-//   .catch(error => response.status(500).json({error}));
+//   Sauce.findOne({_id: request.params.id})
+//   .then(sauce => {
+//     Sauce.updateOne({ _id: request.params.id}, {...request.body, _id: request.params.id})
+//     .then(() => response.status(200).json(sauce))
+//     .catch(error => response.status(500).json({error}));
+//   })
+//   console.log(error)
+//   .catch(error => response.status(418).json({error}))
 // }
 
 // Like or dislike a sauce
