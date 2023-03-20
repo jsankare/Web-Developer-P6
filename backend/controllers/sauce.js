@@ -39,16 +39,19 @@ exports.readOneSauce = (request, response) => {
 };
 
 // Update a sauce
-// exports.updateSauce = (request, response) => {
-//   Sauce.findOne({_id: request.params.id})
-//   .then(sauce => {
-//     Sauce.updateOne({ _id: request.params.id}, {...request.body, _id: request.params.id})
-//     .then(() => response.status(200).json(sauce))
-//     .catch(error => response.status(500).json({error}));
-//   })
-//   console.log(error)
-//   .catch(error => response.status(418).json({error}))
-// }
+exports.updateSauce = (request, response) => {
+  Sauce.findOne({_id: request.params.id})
+  .then(sauce => {
+    if (sauce.userId != request.auth.userId) {
+      response.status(401).json({message : 'Utilisateur non autorisé'});
+    }
+    else {
+      console.log('toto')
+    }
+  })
+  console.log(error)
+  .catch(error => response.status(418).json({error}))
+}
 
 // Like or dislike a sauce
 
