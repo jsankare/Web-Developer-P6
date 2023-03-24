@@ -1,5 +1,7 @@
+// Import the Mongoose library
 const mongoose = require('mongoose');
 
+// Define the schema for a sauce document in the database
 const sauceSchema = mongoose.Schema({
   userId: { type: String, required: true, ref: 'User' },
   name: { type: String, required: true },
@@ -14,4 +16,5 @@ const sauceSchema = mongoose.Schema({
   usersDisliked: [{ type: String, ref: 'User' }],
 });
 
+// Export the Sauce model, which uses the sauceSchema to define the schema for documents in the "sauces" collection
 module.exports = mongoose.model('Sauce', sauceSchema);
