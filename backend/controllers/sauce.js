@@ -40,22 +40,27 @@ exports.readOneSauce = (request, response) => {
 
 // Update a sauce
 exports.updateSauce = (request, response) => {
+
+  const sauceObject = request.file ? {
+    ...JSON.parse(request.body.sauce),
+    imageUrl: `${request.protocol}://${request.get('host')}/images/${request.file.filename}`
+  } : {...request.body};
+
+  delete sauceObject._userId;
   Sauce.findOne({_id: request.params.id})
-  .then(sauce => {
-    if (sauce.userId != request.auth.userId) {
-      response.status(401).json({message : 'Utilisateur non autorisé'});
-    }
-    else {
-      // Actual updating here
-      console.log(sauce)
-      Sauce.updateOne({_id: request.params.id}, {...request.body, _id: request.params.id})
-      .then(() => response.status(200).json({message :'Object modifié'}))
-      .catch(error => response.status(400).json({error}));
-    }
-  });
-  console.log(error)
-  .catch(error => response.status(418).json({error}))
+    .then((sauce) => {
+      if (sauce.userId != request.auth.userId) {
+        response.status(401).json({message :'Non autorisé'});
+      }
+      else {
+        Sauce.updateOne({_id: request.params.id}, {...sauceObject, _id: request.params.id})
+        .then(() => response.status(200).json({message: 'objet modifié'}))
+        .catch(error => response.status(401).json({error}));
+      }
+    })
 }
+// Works but doesn't display the new image correctly
+
 
 // Like or dislike a sauce
 
