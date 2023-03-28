@@ -43,7 +43,7 @@ exports.updateSauce = (request, response) => {
 
   const sauceObject = request.file ? {
     ...JSON.parse(request.body.sauce),
-    imageUrl: `${request.protocol}://${request.get('host')}/images/${request.file.filename}`
+    imageUrl: `/public/images/${request.file.filename}`
   } : {...request.body};
 
   delete sauceObject._userId;
