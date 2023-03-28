@@ -59,10 +59,11 @@ exports.updateSauce = (request, response) => {
       }
     })
 }
-// Works but doesn't display the new image correctly
-
 
 // Like or dislike a sauce
+exports.likeSauce = (request, response) => {
+  
+}
 
 // Delete a sauce
 exports.deleteSauce = (request, response) => {
