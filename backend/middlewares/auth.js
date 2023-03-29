@@ -17,6 +17,6 @@ module.exports = (request, response, next) => {
     next(); // Call the next middleware function in the chain
   } catch (error) {
     // Handle errors with invalid or missing JWT tokens
-    response.status(401).json({ error });
+    response.status(401).json({error : `User not autorized`});
   }
 };
