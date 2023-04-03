@@ -72,15 +72,13 @@ exports.updateSauce = async (request, response) => {
         message: 'Non autorisé'
       });
     } else {
-      await Sauce.updateOne({
+      const updatedSauce = await Sauce.updateOne({
         _id: request.params.id
       }, {
         ...sauceObject,
         _id: request.params.id
       });
-      response.status(200).json({
-        message: 'objet modifié'
-      });
+      response.status(200).json(updatedSauce);
     }
   } catch (error) {
     response.status(500).json({
@@ -127,7 +125,7 @@ exports.likeSauce = async (request, response) => {
           });
           response.status(200).json(sauceUpdated);
         } else {
-          response.status(200).json({
+          response.status(422).json({
             message: "You've already liked this sauce"
           });
         }
@@ -206,7 +204,7 @@ exports.likeSauce = async (request, response) => {
           });
           response.status(200).json(sauceUpdated);
         } else {
-          response.status(200).json({
+          response.status(422).json({
             message: "You've already disliked this sauce"
           });
         }
@@ -243,7 +241,10 @@ exports.deleteSauce = async (request, response) => {
           await Sauce.deleteOne({
             _id: request.params.id
           });
-          response.status(200).json(sauce);
+          // Should be 204 (no content) but angular waits for a message in the response
+          response.status(200).json({
+            message: 'Sauce successfully deleted'
+          });
         } catch (error) {
           response.status(501).json({
             error
