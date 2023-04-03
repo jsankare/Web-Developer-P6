@@ -22,4 +22,6 @@ const storage = multer.diskStorage({
 });
 
 // Export a single-file upload middleware that uses the configured multer storage settings
-module.exports = multer({ storage }).single('image');
+module.exports = multer({
+  storage
+}).single('image');

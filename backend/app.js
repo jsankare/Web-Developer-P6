@@ -13,12 +13,11 @@ mongoose.set('strictQuery', false);
 
 // Connect to MongoDB Atlas using environment variables for authentication
 mongoose.connect(
-  `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@cluster0.vckfmxe.mongodb.net/?retryWrites=true&w=majority`,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  },
-)
+    `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@cluster0.vckfmxe.mongodb.net/?retryWrites=true&w=majority`, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    },
+  )
   .then(() => console.log('Connexion à MongoDB réussie '))
   .catch(() => console.log('Connexion à MongoDB échouée '));
 
