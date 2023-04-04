@@ -24,12 +24,17 @@ Clone the project
 ```
 
 
+
 ### Backend
 
 Go to the backend directory
 ```bash
   cd backend
   ```
+
+  Credentials :
+  login : user
+  password : userPassword
 
 Install dependencies
 ```bash
