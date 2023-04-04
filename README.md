@@ -33,6 +33,12 @@ Go to the backend directory
   ```
 
   Credentials :
+
+  First User :
+  login : admin
+  password : adminPassword
+
+  Second User
   login : user
   password : userPassword
 
