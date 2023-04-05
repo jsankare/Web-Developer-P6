@@ -48,6 +48,8 @@ Install dependencies
   cp .env.dist .env
 ```
 
+.env should be included in .gitignore but isn't for verification needs
+
 
 Don't forget to update the .env
 
