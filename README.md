@@ -48,7 +48,13 @@ Install dependencies
   cp .env.dist .env
 ```
 
-.env should be included in .gitignore but isn't for verification needs
+.env credentials
+
+```bash
+MONGO_USERNAME=jsankare
+MONGO_PASSWORD=vj8IDShvs2Rvo5TV
+JWT_SECRET=huijrgehof456gretg
+```
 
 
 Don't forget to update the .env
